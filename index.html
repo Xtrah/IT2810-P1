@@ -108,52 +108,44 @@
         <canvas id="art-canvas"></canvas>
         <script>
             const canvas = document.getElementById('art-canvas')
-            const context = canvas.getContext('2d')
+            const c = canvas.getContext('2d')
             canvas.width = art1.clientWidth;
             canvas.height = art1.clientHeight;
-            context.globalCompositeOperation = 'destination-over'
 
-            let number = 0;
-            let scale = 6.9;
+            // Head
+            c.beginPath()
+            c.arc(canvas.width * 0.5, canvas.height * 0.5, 75, 0, Math.PI * 2, false)
+            c.fillStyle = "yellow"
+            c.lineWidth = 7
+            c.fill()
+            c.stroke()
 
-            let mouse = {
-                x: undefined,
-                y: undefined
-            };
-            
-            window.addEventListener('mousemove', function (e) {
-                mouse.x = event.x;
-                mouse.y = event.y;
-            });
+            // Eyes
+            c.beginPath()
+            c.lineWidth = 2
+            c.arc(canvas.width * 0.485, canvas.height * 0.45, 19, Math.PI, Math.PI * 2, false)
+            c.arc(canvas.width * 0.515, canvas.height * 0.45, 19, Math.PI, Math.PI * 2, false)
+            c.fillStyle = "white"
+            c.fill()
+            c.stroke()
 
-            function drawFlower() {
-                let angle = number * -69;
-                let radius = scale * Math.sqrt(number);
-                let positionX = radius * Math.sin(angle) + canvas.width * 0.5;
-                let positionY = radius * Math.cos(angle) + canvas.height * 0.5;
+            // Eyeballs
+            c.beginPath()
+            c.lineWidth = 2
+            c.arc(canvas.width * 0.485, canvas.height * 0.45, 8, Math.PI, Math.PI * 2, false)
+            c.arc(canvas.width * 0.515, canvas.height * 0.45, 8, Math.PI, Math.PI * 2, false)
+            c.fillStyle = "black"
+            c.fill()
+            c.stroke()
 
-                context.fillStyle = '#1a202c';
-                context.lineWidth = 2;
-                context.strokeStyle = '#faf089'
-                context.beginPath();
-                context.arc(positionX, positionY, number, 0, Math.PI * 2);
-                context.closePath();
-                context.fill();
-                context.stroke();
 
-                number++;
-            }
-
-            function animate() {
-                // context.clearRect(0, 0, canvas.width, canvas.height)
-                drawFlower()
-                if (number > 1000) {
-                    return
-                }
-                requestAnimationFrame(animate);
-            }
-            animate();
-        </script>
+            // Mouth
+            c.beginPath()
+            c.arc(canvas.width * 0.5, canvas.height * 0.55, 40, Math.PI, Math.PI * 2, true)
+            c.fillStyle = "pink"
+            c.fill()
+            c.stroke()
+            </script>
         <p>¯\_(ツ)_/¯</p>
     </box>
     <box id="art2">
