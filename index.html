@@ -35,6 +35,9 @@
     h2:hover {
         color: darkorange;
     }
+    button:hover {
+        background-color: darkorange;
+    }
 
     em {
         margin-bottom: 2vh;
@@ -42,6 +45,14 @@
 
     p {
         font-size: medium;
+    }
+
+    ul {
+        font-size: medium;
+    }
+
+    a:visited {
+        color: #faf089;
     }
 
     footer {
@@ -141,21 +152,18 @@
     $(document).ready(function () {
         $("button").click(function () {
             $("#infoText").fadeToggle("fast");
-            // $("#infoText p").fadeToggle("fast");
         });
     });
 </script>
 
 <body>
     <box id="artist">
-        <h1>Bolle ipsum</h1>
-        <em>Fastelavnsbolle skolebolle tangzhongbolle glutenfri bolle kanelbolle solbolle havrebolle skillingsbolle
-            korsbolle fransk bolle berlinerbolle sjokoladebolle rosinbolle espabolle jubileumsbolle karamellbolle
-            grovis.
-        </em>
+        <h1>Bolle Ipsum</h1>
+        <em>Bolle Ipsum is the legendary artist of one of the early smileyfaces of the emoticon era. Bolle has used several first names, but the last name Ipsum has always been the same. Some of the first names he's used are Fastelavnsbolle, Skolebolle, Tangzhongbolle, Glutenfri Bolle, Kanelbolle, Solbolle, Havrebolle, Skillingsbolle, Korsbolle, Fransk Bolle, Berlinerbolle, Sjokoladebolle, Rosinbolle, Espabolle, Jubileumsbolle, Karamellbolle, and Grovis. As the word "Bolle" is common for most of the names, this is the name we will refer to.</em>
+        <em>Bolle Ipsums amazing artworks has been reproduced below, and can be clicked to see magic eye movement, animated through the power of state of the art web technology.</em>
     </box>
     <box id="art1">
-        <h2>Artwork 1</h2>
+        <h2>Art in Canvas</h2>
         <canvas id="art-canvas"></canvas>
         <script>
             const canvas = document.getElementById('art-canvas')
@@ -279,7 +287,7 @@
         </script>
     </box>
     <box id="art2">
-        <h2>Artwork 2</h2>
+        <h2>Artwork in SVG</h2>
         <svg id="art-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
             <circle id="head" class="universal-stroke thick-stroke" cx="100" cy="100" r="75" />
             <path id="mouth" class="universal-stroke" d="M140 114a40,40,0,0,1-80,0Z" />
@@ -303,21 +311,27 @@
         <button>More information</button>
         <div id="infoText">
             <h3>Flexbox layout</h3>
-            <p></p>
-            <h3>HTML canvas og SVG i HTML</h3>
-            <p>(❁´◡`❁)</p>
-            <h3>Bruk av jQuery</h3>
-            <p>(❁´◡`❁)</p>
+            <p>Flexbox is used to automatically align items depending on the screen size of the device. Using flexbox, the artwork boxes automatically size themselves according to the users screen size and center both itself and the artwork inside, as flexbox by default attempts to stretch texts and items to fit containers and remaining space. Aligning content to center and using a column instead of a row, we get a simple centered box page setup on any screen size, with very short and readable code.</p>
+            <h3>HTML canvas and SVG</h3>
+            <p>Using the HTML5 canvas API, we generate the first emoticon by using the <code>arc()</code> method with different values. We define the canvas box size as <code>716x270</code> pixels, a simple medium sized rectangle to work with, and draw arcs one by one. On every arc we specify <code>X</code> and <code>Y</code> coordinates together with radius and angle parameters. To move the eyes, we add functions to get coordinates of the users input device, such as a mouse or touchscreen, and check if the coordinates are within the accepted coordinate area, in this case our yellow head. If true, we call the <code>animateLeft()</code> or <code>animateRight()</code> functions depending on the coordinates of the left eyeball on the time of clicking. The animate functions simply change the X coordinate value of both eyeballs. The click is registered using an event listener on the canvas box.</p>
+            <p>The SVG artwork is written in XML and rendered through the browser on load. The head is drawn using the <code>&lt;circle&gt;</code> SVG element, while the face itself are drawn using the <code>&lt;path&gt;</code> SVG element. We give each SVG element an ID in the DOM, style them using CSS classes, and use jQuery listeners to check if the user clicks on our element with the ID <code>head</code>. jQuerys <code>toggleClass</code> method allows us to quickly swap classes on both eyeballs. CSS on the eyeball classes allows us to transform their X coordinate in the document to either side. This solution does however not take into account if the user rapidly clicks the eyes, making them jump from side to side.</p>
+            <h3>Use of jQuery</h3>
+            <p>The jQuery library is used to easily add listeners to where the user clicks in the document, using the <code>click(function)</code> method. Its <code>toggleClass()</code> methods also shorten our code, as it allows us to toggle on and off a class on an element in the DOM, instead of manually removing it and adding it in different functions in vanilla JavaScript.</p>
+            <p>We also use jQuerys <code>slideToggle()</code> and <code>fadeToggle()</code> methods to show and hide the artwork inside the box, both further shortening our code, making it easily readable and quickly adding simple animations to smoothly display or hide content. These methods are connected to clicking the headers or the button, and some simple hover CSS for user friendliness.</p>
             <h3>Cross-browser testing</h3>
-            <p>(❁´◡`❁)</p>
-            <h3>Kilder</h3>
-            <p><a href="https://www.youtube.com/watch?v=ymmtEgp0Tuc">HTML5 Canvas Tutorial for Beginners [How to Draw
-                    Shapes with JavaScript]</a></p>
+            <p>The site is tested in Google Chrome and Microsoft Edge, using the screen sizes <code>3840x2400</code> (4K), <code>1920x1080</code> (Full HD), <code>1024x1366</code> (iPad Pro) and <code>375x812</code> (iPhone X). The site is designed to be useable on mobile devices and touch screens.</p>
+            <h3>Sources</h3>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=ymmtEgp0Tuc">HTML5 Canvas Tutorial for Beginners [How to Draw Shapes with JavaScript] by Franks laboratory, august 2020</a></li>
+                <li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">A Complete Guide to Flexbox by Chris Coyier, april 2013</a></li>
+                <li><a href="https://flexboxfroggy.com/">Flexbox Froggy</a></li>
+                <li><a href="https://cssreference.io/flexbox/">Flexbox - cssreference.io</a></li>
+                <li><a href="https://medlem.ntnui.no">Color inspiration - NTNUI membership system</a></li>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element">SVG element reference, MDN (circle, path)</a></li>
+            </ul>
+            
         </div>
     </box>
-
 </body>
-
-
 
 </html>
