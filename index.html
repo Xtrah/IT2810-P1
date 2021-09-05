@@ -37,7 +37,6 @@
     }
 
     p {
-        display: none;
         font-size: medium;
     }
 
@@ -61,6 +60,7 @@
     }
 
     #art-canvas {
+        /* display: none; */
         position: relative;
         /* border: 2px solid black; */
         background: none;
@@ -75,7 +75,7 @@
 <script>
     $(document).ready(function () {
         $("#art1").click(function () {
-            $("#art1 p").slideToggle("slow");
+            $("#art-canvas").slideDown("slow");
         });
     });
 
@@ -95,13 +95,11 @@
 
 <body>
     <box id="artist">
-        <h1>Lorem ipsum</h1>
-        <em>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.</em>
+        <h1>Bolle ipsum</h1>
+        <em>Fastelavnsbolle skolebolle tangzhongbolle glutenfri bolle kanelbolle solbolle havrebolle skillingsbolle
+            korsbolle fransk bolle berlinerbolle sjokoladebolle rosinbolle espabolle jubileumsbolle karamellbolle
+            grovis.
+        </em>
     </box>
     <box id="art1">
         <h2>Artwork 1</h2>
@@ -109,48 +107,127 @@
         <script>
             const canvas = document.getElementById('art-canvas')
             const c = canvas.getContext('2d')
-            canvas.width = art1.clientWidth;
-            canvas.height = art1.clientHeight;
+            canvas.width = 716;
+            canvas.height = 270;
 
-            // Head
-            c.beginPath()
-            c.arc(canvas.width * 0.5, canvas.height * 0.5, 75, 0, Math.PI * 2, false)
-            c.fillStyle = "yellow"
-            c.lineWidth = 7
-            c.fill()
-            c.stroke()
+            // Animation
+            // Mouse position
+            function getMousePos(canvas, event) {
+                var rect = canvas.getBoundingClientRect(),
+                    scaleX = canvas.width / rect.width,
+                    scaleY = canvas.height / rect.height;
 
-            // Eyes
-            c.beginPath()
-            c.lineWidth = 2
-            c.arc(canvas.width * 0.485, canvas.height * 0.45, 19, Math.PI, Math.PI * 2, false)
-            c.arc(canvas.width * 0.515, canvas.height * 0.45, 19, Math.PI, Math.PI * 2, false)
-            c.fillStyle = "white"
-            c.fill()
-            c.stroke()
+                return {
+                    x: (event.clientX - rect.left) * scaleX,
+                    y: (event.clientY - rect.top) * scaleY,
+                };
+            }
 
-            // Eyeballs
-            c.beginPath()
-            c.lineWidth = 2
-            c.arc(canvas.width * 0.485, canvas.height * 0.45, 8, Math.PI, Math.PI * 2, false)
-            c.arc(canvas.width * 0.515, canvas.height * 0.45, 8, Math.PI, Math.PI * 2, false)
-            c.fillStyle = "black"
-            c.fill()
-            c.stroke()
+            function isPointInElement(mousePos, x, y, width, height) {
+                console.log(mousePos)
+                if (mousePos.x > x && mousePos.x < x + width && mousePos.y > y && mousePos.y < y + height) {
+                    return true;
+                }
+                return false;
+            }
+
+            let leftEyeballX = 325
+            let rightEyeballX = 375
+
+            function draw() {
+
+                // Head
+                c.beginPath()
+                c.arc(canvas.width * 0.5, canvas.height * 0.5, 75, 0, Math.PI * 2, false)
+                c.fillStyle = "yellow"
+                c.lineWidth = 7
+                c.fill()
+                c.stroke()
+
+                // Eye left
+                c.beginPath()
+                c.lineWidth = 2
+                c.fillStyle = "white"
+                c.arc(330, canvas.height * 0.45, 19, Math.PI, Math.PI * 2, false)
+                c.closePath()
+                c.fill()
+                c.stroke()
+
+                // Eye right
+                c.beginPath()
+                c.lineWidth = 2
+                c.fillStyle = "white"
+                c.arc(380, canvas.height * 0.45, 19, Math.PI, Math.PI * 2, false)
+                c.closePath()
+                c.fill()
+                c.stroke()
+
+                // Eyeball left
+                c.beginPath()
+                c.lineWidth = 2
+                c.fillStyle = "black"
+                c.arc(leftEyeballX, canvas.height * 0.45, 9, Math.PI, Math.PI * 2, false)
+                c.closePath()
+                c.fill()
+                c.stroke()
+
+                // Eyeball right
+                c.beginPath()
+                c.lineWidth = 2
+                c.fillStyle = "black"
+                c.arc(rightEyeballX, canvas.height * 0.45, 9, Math.PI, Math.PI * 2, false)
+                c.closePath()
+                c.fill()
+                c.stroke()
+
+                // Mouth
+                c.beginPath()
+                c.arc(canvas.width * 0.5, canvas.height * 0.55, 40, Math.PI, Math.PI * 2, true)
+                c.fillStyle = "pink"
+                c.closePath()
+                c.fill()
+                c.stroke()
+            }
+            draw()
 
 
-            // Mouth
-            c.beginPath()
-            c.arc(canvas.width * 0.5, canvas.height * 0.55, 40, Math.PI, Math.PI * 2, true)
-            c.fillStyle = "pink"
-            c.fill()
-            c.stroke()
-            </script>
-        <p>¯\_(ツ)_/¯</p>
+            function animateLeft() {
+                c.clearRect(0, 0, canvas.width, canvas.height)
+                draw()
+                if (leftEyeballX > 325) {
+                    leftEyeballX -= 1;
+                    rightEyeballX -= 1;
+                    requestAnimationFrame(animateLeft)
+                }
+            }
+
+            function animateRight() {
+                c.clearRect(0, 0, canvas.width, canvas.height)
+                draw()
+
+                if (leftEyeballX < 340) {
+                    leftEyeballX += 1;
+                    rightEyeballX += 1;
+                    requestAnimationFrame(animateRight)
+                }
+            }
+
+            canvas.addEventListener('click', (event) => {
+                if (isPointInElement(getMousePos(canvas, event), 295, 60,
+                        150, 150)) {
+                    console.log('Smiley clicked!');
+                    if (leftEyeballX === 325) {
+                        animateRight()
+                    } else {
+                        animateLeft()
+                    }
+                }
+            });
+        </script>
     </box>
     <box id="art2">
         <h2>Artwork 2</h2>
-        <p>¯\_(ツ)_/¯</p>
+        <!-- <p>¯\_(ツ)_/¯</p> -->
     </box>
     <box id="info">
         <button>More information</button>
