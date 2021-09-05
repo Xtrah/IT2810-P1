@@ -32,6 +32,10 @@
         border: none;
     }
 
+    h2:hover {
+        color: darkorange;
+    }
+
     em {
         margin-bottom: 2vh;
     }
@@ -60,9 +64,8 @@
     }
 
     #art-canvas {
-        /* display: none; */
+        display: none;
         position: relative;
-        /* border: 2px solid black; */
         background: none;
         top: 0;
         left: 0;
@@ -70,25 +73,75 @@
         height: 100%;
         margin-bottom: 2vh;
     }
+
+    #art-svg {
+        display: none;
+    }
+
+    #head {
+        fill: #fdfe3f;
+        stroke-width: 7px;
+    }
+
+    #mouth {
+        fill: #edc1cb;
+    }
+
+    .eyeball {
+        fill: white;
+    }
+
+    .universal-stroke {
+        stroke: #000;
+        stroke-width: 2px;
+    }
+
+    .pupilRight {
+        animation: lookRight 0.4s linear forwards;
+    }
+
+    .pupilLeft {
+        animation: lookLeft 0.4s linear forwards;
+    }
+
+    @keyframes lookRight {
+        from {
+            transform: translateX(2px);
+        }
+
+        to {
+            transform: translateX(15px);
+        }
+    }
+
+    @keyframes lookLeft {
+        from {
+            transform: translateX(15px);
+        }
+
+        to {
+            transform: translateX(2px);
+        }
+    }
 </style>
 
 <script>
     $(document).ready(function () {
-        $("#art1").click(function () {
-            $("#art-canvas").slideDown("slow");
+        $("#art1 h2").click(function () {
+            $("#art-canvas").slideToggle("medium");
         });
     });
 
     $(document).ready(function () {
-        $("#art2").click(function () {
-            $("#art2 p").slideToggle("slow");
+        $("#art2 h2").click(function () {
+            $("#art-svg").slideToggle("medium");
         });
     });
 
     $(document).ready(function () {
         $("button").click(function () {
             $("#infoText").fadeToggle("fast");
-            $("#infoText p").fadeToggle("fast");
+            // $("#infoText p").fadeToggle("fast");
         });
     });
 </script>
@@ -227,13 +280,30 @@
     </box>
     <box id="art2">
         <h2>Artwork 2</h2>
-        <!-- <p>¯\_(ツ)_/¯</p> -->
+        <svg id="art-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+            <circle id="head" class="universal-stroke thick-stroke" cx="100" cy="100" r="75" />
+            <path id="mouth" class="universal-stroke" d="M140 114a40,40,0,0,1-80,0Z" />
+            <path id="leftEyeball" class="universal-stroke eyeball" d="M94 91a19,19,0,0,0-38,0Z" />
+            <path id="leftPupil" class="universal-stroke pupilLeft" d="M78 91a9,9,0,0,0-18,0Z" />
+            <path id="rightEyeball" class="universal-stroke eyeball" d="M144 91a19,19,0,0,0-38,0Z" />
+            <path id="rightPupil" class="universal-stroke pupilLeft" d="M128 91a9,9,0,0,0-18,0Z" />
+        </svg>
+        <script>
+            $(document).ready(function () {
+                $("#head").click(function () {
+                    $("#leftPupil").toggleClass("pupilLeft")
+                    $("#leftPupil").toggleClass("pupilRight")
+                    $("#rightPupil").toggleClass("pupilLeft")
+                    $("#rightPupil").toggleClass("pupilRight")
+                });
+            });
+        </script>
     </box>
     <box id="info">
         <button>More information</button>
         <div id="infoText">
             <h3>Flexbox layout</h3>
-            <p>(❁´◡`❁)</p>
+            <p></p>
             <h3>HTML canvas og SVG i HTML</h3>
             <p>(❁´◡`❁)</p>
             <h3>Bruk av jQuery</h3>
